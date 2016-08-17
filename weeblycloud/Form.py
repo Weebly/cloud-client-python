@@ -12,9 +12,11 @@ class Form(CloudResource):
 		self.user_id = int(user_id)
 		self.site_id = int(site_id)
 		self.form_id = int(form_id)
-		self._endpoint = "user/{0}/site/{1}/form/{2}".format(self.user_id,
-															 self.site_id,
-															 self.form_id)
+		self._endpoint = "user/{0}/site/{1}/form/{2}".format(
+			self.user_id,
+			self.site_id,
+			self.form_id
+		)
 		CloudResource.__init__(self, data)
 
 	def id(self):
@@ -27,10 +29,12 @@ class Form(CloudResource):
 		keyword argument filters.
 		"""
 		result = self.client.get(self._endpoint + "/entry", params=filters)
-		return PaginatedList(result,
-							 FormEntry,
-							 (self.user_id, self.site_id, self.form_id),
-							 "form_entry_id")
+		return PaginatedList(
+			result,
+			FormEntry,
+			(self.user_id, self.site_id, self.form_id),
+			"form_entry_id"
+		)
 
 	def get_form_entry(self, form_entry_id):
 		"""Return the `FormEntry` with the given id."""

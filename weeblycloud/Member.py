@@ -11,9 +11,11 @@ class Member(SaveableResource, Deleteable):
 		self.user_id = int(user_id)
 		self.site_id = int(site_id)
 		self.member_id = int(member_id)
-		self._endpoint = "user/{0}/site/{1}/member/{2}".format(self.user_id,
-															   self.site_id,
-															   self.member_id)
+		self._endpoint = "user/{0}/site/{1}/member/{2}".format(
+			self.user_id,
+			self.site_id,
+			self.member_id
+		)
 		SaveableResource.__init__(self, data)
 
 	def id(self):

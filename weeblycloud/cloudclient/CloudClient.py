@@ -78,9 +78,11 @@ class CloudClient(object):
 		See https://cloud-developer.weebly.com/about-the-rest-apis.html#signing-and-authenticating-requests
 		"""
 		request = request_type + "\n" + endpoint + "\n" + content
-		mac = hmac.new(self.api_secret.encode('utf-8'),
-					   request.encode('utf-8'),
-					   digestmod=hashlib.sha256).hexdigest()
+		mac = hmac.new(
+			self.api_secret.encode('utf-8'),
+			request.encode('utf-8'),
+			digestmod=hashlib.sha256
+		).hexdigest()
 		return base64.b64encode(mac.encode('utf-8'))
 
 	def _call(self, method, endpoint, content=None, params=None):
@@ -92,10 +94,12 @@ class CloudClient(object):
 		endpoint = endpoint.strip("/")
 		headers = {"X-Signed-Request-Hash": self.__sign(method, endpoint, json_data)}
 
-		response = self.session.request(method=method,
-										url=(CloudClient.BASE_API + endpoint),
-										headers = headers,
-										params=params,
-										data = json_data)
+		response = self.session.request(
+			method=method,
+			url=(CloudClient.BASE_API + endpoint),
+			headers = headers,
+			params=params,
+			data = json_data
+		)
 
 		return WeeblyCloudResponse(self.session, response)

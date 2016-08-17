@@ -53,8 +53,10 @@ class Site(SaveableResource, Deleteable):
 		be provided.  When these values are set, the site will be published to
 		the location specified.
 		"""
-		response = self.client.post(self._endpoint + "/setPublishCredentials",
-									content=options)
+		response = self.client.post(
+			self._endpoint + "/setPublishCredentials",
+			content=options
+		)
 		return bool(response.json["success"])
 
 	def restore(self, url):
@@ -137,10 +139,12 @@ class Site(SaveableResource, Deleteable):
 		"""
 		properties.update({"email":email, "name":name, "password":password})
 		response = self.client.post(self._endpoint + "/member",content=properties)
-		return Member(response.json['member_id'],
-					  self.user_id,
-					  self.site_id,
-					  data=response.json)
+		return Member(
+			response.json['member_id'],
+			self.user_id,
+			self.site_id,
+			data=response.json
+		)
 
 	def list_groups(self, **filters):
 		"""
@@ -156,10 +160,12 @@ class Site(SaveableResource, Deleteable):
 		"""
 		data = {"name":name}
 		response = self.client.post(self._endpoint + "/group", content=data)
-		return Group(response.json['group_id'],
-					 self.user_id,
-					 self.site_id,
-					 data=response.json)
+		return Group(
+			response.json['group_id'],
+			self.user_id,
+			self.site_id,
+			data=response.json
+		)
 
 	def list_forms(self, **filters):
 		"""

@@ -12,10 +12,12 @@ class BlogPost(SaveableResource, Deleteable):
 		self.site_id = int(site_id)
 		self.blog_id = int(blog_id)
 		self.blog_post_id = int(blog_post_id)
-		self._endpoint = "user/{0}/site/{1}/blog/{2}/post/{3}".format(self.user_id,
-																	  self.site_id,
-																	  self.blog_id,
-																	  self.blog_post_id)
+		self._endpoint = "user/{0}/site/{1}/blog/{2}/post/{3}".format(
+			self.user_id,
+			self.site_id,
+			self.blog_id,
+			self.blog_post_id
+		)
 		SaveableResource.__init__(self, data)
 
 	def id(self):

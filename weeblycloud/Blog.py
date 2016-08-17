@@ -12,9 +12,11 @@ class Blog(CloudResource):
 		self.user_id = int(user_id)
 		self.site_id = int(site_id)
 		self.blog_id = int(blog_id)
-		self._endpoint = "user/{0}/site/{1}/blog/{2}".format(self.user_id,
-															 self.site_id,
-															 self.blog_id)
+		self._endpoint = "user/{0}/site/{1}/blog/{2}".format(
+			self.user_id, 
+			self.site_id, 
+			self.blog_id
+		)
 		CloudResource.__init__(self, data)
 
 	def id(self):
@@ -27,10 +29,12 @@ class Blog(CloudResource):
 		keyword argument filters.
 		"""
 		result = self.client.get(self._endpoint + "/post", params=filters)
-		return PaginatedList(result,
-							 BlogPost,
-							 (self.user_id, self.site_id, self.blog_id),
-							 "post_id")
+		return PaginatedList(
+			result, 
+			BlogPost, 
+			(self.user_id, self.site_id, self.blog_id), 
+			"post_id"
+		)
 
 	def create_blog_post(self, post_body, **properties):
 		"""
@@ -40,11 +44,13 @@ class Blog(CloudResource):
 		"""
 		properties.update({"post_body":post_body})
 		response = self.client.post(self._endpoint + "/post",content=properties)
-		return BlogPost(response.json["post_id"],
-						self.user_id,
-						self.site_id,
-						self.blog_id,
-						data=response.json)
+		return BlogPost(
+			response.json["post_id"],
+			self.user_id,
+			self.site_id,
+			self.blog_id,
+			data=response.json
+		)
 
 	def get_blog_post(self, blog_post_id):
 		"""Return the `BlogPost` with the given id."""

@@ -11,9 +11,11 @@ class Group(SaveableResource, Deleteable):
 		self.user_id = int(user_id)
 		self.site_id = int(site_id)
 		self.group_id = int(group_id)
-		self._endpoint = "user/{0}/site/{1}/group/{2}".format(self.user_id,
-															  self.site_id,
-															  self.group_id)
+		self._endpoint = "user/{0}/site/{1}/group/{2}".format(
+			self.user_id,
+			self.site_id,
+			self.group_id
+		)
 		SaveableResource.__init__(self, data)
 
 	def id(self):
