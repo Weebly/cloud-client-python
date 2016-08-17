@@ -10,7 +10,9 @@ class Page(CloudResource):
 		self.user_id = int(user_id)
 		self.site_id = int(site_id)
 		self.page_id = int(page_id)
-		self._endpoint = "user/{0}/site/{1}/page/{2}".format(self.user_id, self.site_id, self.page_id)
+		self._endpoint = "user/{0}/site/{1}/page/{2}".format(self.user_id,
+															 self.site_id,
+															 self.page_id)
 		CloudResource.__init__(self, data)
 
 	def change_title(self, title):

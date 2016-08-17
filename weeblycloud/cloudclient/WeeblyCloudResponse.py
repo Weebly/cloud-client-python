@@ -31,9 +31,10 @@ class WeeblyCloudResponse(object):
 
 	def __iter__(self):
 		"""Returns the response as an interable."""
-		if not self.is_paginated:
-			raise PaginationError("The response is not paginated.")
-		return self
+		if self.is_paginated:
+			return self
+
+		raise PaginationError("The response is not paginated.")
 
 	def __next__(self):
 		"""Allows paging through the response as an iterable in Python 3"""
@@ -41,10 +42,10 @@ class WeeblyCloudResponse(object):
 
 	def __len__(self):
 		"""Returns the number of pages in the result or None if not paginated"""
-		if not self.is_paginated:
-			return None
-		else:
+		if self.is_paginated:
 			return self.max_page
+
+		return None
 
 	def __str__(self):
 		"""Return the JSON of the current page"""
@@ -70,6 +71,7 @@ class WeeblyCloudResponse(object):
 
 		if not self.is_paginated:
 			raise PaginationError("The response is not paginated.")
+
 		if self.current_page >= self.max_page:
 			return False
 
@@ -84,6 +86,7 @@ class WeeblyCloudResponse(object):
 
 		if not self.is_paginated:
 			raise PaginationError("The response is not paginated.")
+
 		if self.current_page <= 1:
 			return False
 
@@ -97,23 +100,24 @@ class WeeblyCloudResponse(object):
 
 		self.status_code = self.__response.status_code
 
-		# Handle errors. Sometimes there may not be a response body (which is why ValueError)
-		# must be caught.
+		# Handle errors. Sometimes there may not be a response body (which is
+		# why ValueError) must be caught.
 		try:
-			if (self.__response.status_code not in [200,204]) or 'error' in self.__response.json():
+			if (self.__response.status_code not in [200,204]) or "error" in self.__response.json():
 				error = self.__response.json()
-				raise ResponseError(error['error']['message'], error['error']['code'])
+				raise ResponseError(error["error"]["message"], error["error"]["code"])
 		except ValueError:
-			# Sometimes DELETE returns nothing. When this is the case, it will have a status code 204
+			# Sometimes DELETE returns nothing. When this is the case, it will
+			# have a status code 204
 			if self.__response.request.method is not "DELETE" and self.__response.status_code is not 204:
 				raise ResponseError("Unknown error occured.", self.__response.status_code)
 
 		# Get information on paging if response is paginated
-		if 'X-Resultset-Total' in self.__response.headers and self.__response.headers['X-Resultset-Total'] > self.__response.headers['X-Resultset-Limit']:
+		if "X-Resultset-Total" in self.__response.headers and self.__response.headers["X-Resultset-Total"] > self.__response.headers["X-Resultset-Limit"]:
 			self.is_paginated = True
-			self.records = int(self.__response.headers.get('X-Resultset-Total'))
-			self.page_size = int(self.__response.headers['X-Resultset-Limit'])
-			self.current_page = int(self.__response.headers['X-Resultset-Page'])
+			self.records = int(self.__response.headers.get("X-Resultset-Total"))
+			self.page_size = int(self.__response.headers["X-Resultset-Limit"])
+			self.current_page = int(self.__response.headers["X-Resultset-Page"])
 			self.max_page = int(math.ceil(float(self.records)/int(self.page_size)))
 
 		# Save the content of the request
@@ -127,13 +131,17 @@ class WeeblyCloudResponse(object):
 				raise ValueError("No JSON object could be decoded" + self.__response.request.method)
 
 	def __prepare_request(self, page):
-		"""Updates the existing request based on the new page. Returns the new PreparedRequest."""
+		"""
+		Updates the existing request based on the new page.
+		Returns the new PreparedRequest.
+		"""
 		# Replace the page parameter if it exists and add it if it doesn't exist
 		page_regex = re.compile("(?<=[\\&\\?]page=)\\d*")
 		regex_res = page_regex.subn(str(page),self.__response.request.url)
 
 		if regex_res[1] == 0:
-			self.__response.request.prepare_url(self.__response.request.url, {'page': str(page)})
+			self.__response.request.prepare_url(self.__response.request.url,
+												{"page": str(page)})
 		else:
 			self.__response.request.url = regex_res[0]
 

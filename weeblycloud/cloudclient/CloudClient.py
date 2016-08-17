@@ -36,7 +36,7 @@ class CloudClient(object):
 		self.session = CloudClient.SESSION
 
 		self.session.headers.update({
-			'Content-type': 'application/json',
+			"Content-type": "application/json",
 			'X-Public-Key': self.api_key
 		})
 
@@ -71,11 +71,14 @@ class CloudClient(object):
 		return self._call("DELETE", endpoint, content, params)
 
 	def __sign(self, request_type, endpoint, content=None):
-		"""Signs a request and returns the HMAC hash.
+		"""
+		Signs a request and returns the HMAC hash.
 		See https://cloud-developer.weebly.com/about-the-rest-apis.html#signing-and-authenticating-requests
 		"""
 		request = request_type + "\n" + endpoint + "\n" + content
-		mac = hmac.new(self.api_secret.encode('utf-8'), request.encode('utf-8'), digestmod=hashlib.sha256).hexdigest()
+		mac = hmac.new(self.api_secret.encode('utf-8'),
+					   request.encode('utf-8'),
+					   digestmod=hashlib.sha256).hexdigest()
 		return base64.b64encode(mac.encode('utf-8'))
 
 	def _call(self, method, endpoint, content=None, params=None):
@@ -84,8 +87,13 @@ class CloudClient(object):
 		content = content or {}
 
 		json_data = json.dumps(content)
-		endpoint = endpoint.strip("/") # strip leading /
-		headers = {'X-Signed-Request-Hash': self.__sign(method, endpoint, json_data)}
+		endpoint = endpoint.strip("/")
+		headers = {"X-Signed-Request-Hash": self.__sign(method, endpoint, json_data)}
 
-		response = self.session.request(method=method, url=(CloudClient.BASE_API + endpoint), headers = headers, params=params, data = json_data)
+		response = self.session.request(method=method,
+										url=(CloudClient.BASE_API + endpoint),
+										headers = headers,
+										params=params,
+										data = json_data)
+
 		return WeeblyCloudResponse(self.session, response)

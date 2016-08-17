@@ -16,7 +16,7 @@ class User(SaveableResource):
 
 	def _get(self):
 		response = self.client.get(self._endpoint)
-		self.properties = response.json['user']
+		self.properties = response.json["user"]
 
 	def id(self):
 		"""Returns the ID"""
@@ -81,7 +81,7 @@ class User(SaveableResource):
 		"""
 		properties.update({"domain":domain})
 		response = self.client.post(self._endpoint + "/site",content=properties)
-		return Site(response.json['site']['site_id'], self.user_id, data=response.json['site'])
+		return Site(response.json["site"]["site_id"], self.user_id, data=response.json["site"])
 
 	def get_site(self, site_id):
 		"""

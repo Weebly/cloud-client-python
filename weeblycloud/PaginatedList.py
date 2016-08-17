@@ -33,7 +33,8 @@ class PaginatedList(object):
 		of results as needed.
 		"""
 
-		# If the end of the page is reached, either get the next page or stop iteration
+		# If the end of the page is reached, either get the next page or stop
+		# iteration
 		if self.__cursor >= len(self.list):
 
 			# If the result isn't paginated, no need to try to get next page

@@ -22,7 +22,7 @@ class Site(SaveableResource, Deleteable):
 
 	def _get(self):
 		response = self.client.get(self._endpoint)
-		self.properties = response.json['site']
+		self.properties = response.json["site"]
 
 	def id(self):
 		"""Return the site_id"""
@@ -31,12 +31,12 @@ class Site(SaveableResource, Deleteable):
 	def publish(self):
 		"""Publish the site"""
 		response = self.client.post(self._endpoint + "/publish")
-		return bool(response.json['success'])
+		return bool(response.json["success"])
 
 	def unpublish(self):
 		"""Unpublish the site"""
 		response = self.client.post(self._endpoint + "/unpublish")
-		return bool(response.json['success'])
+		return bool(response.json["success"])
 
 	def login_link(self):
 		"""
@@ -44,7 +44,7 @@ class Site(SaveableResource, Deleteable):
 		This method requires that the account is enabled.
 		"""
 		response = self.client.post(self._endpoint + "/loginLink")
-		return response.json['link']
+		return response.json["link"]
 
 	def set_publish_credentials(self, **options):
 		"""
@@ -53,8 +53,9 @@ class Site(SaveableResource, Deleteable):
 		be provided.  When these values are set, the site will be published to
 		the location specified.
 		"""
-		response = self.client.post(self._endpoint + "/setPublishCredentials", content=options)
-		return bool(response.json['success'])
+		response = self.client.post(self._endpoint + "/setPublishCredentials",
+									content=options)
+		return bool(response.json["success"])
 
 	def restore(self, url):
 		"""
@@ -64,7 +65,7 @@ class Site(SaveableResource, Deleteable):
 		"""
 		data = {"domain":url}
 		response = self.client.post(self._endpoint + "/restore", content=data)
-		return bool(response.json['success'])
+		return bool(response.json["success"])
 
 	def disable(self):
 		"""
@@ -73,7 +74,7 @@ class Site(SaveableResource, Deleteable):
 		the editor, an error is thrown.
 		"""
 		response = self.client.post(self._endpoint + "/disable")
-		return bool(response.json['success'])
+		return bool(response.json["success"])
 
 	def enable(self):
 		"""
@@ -82,7 +83,7 @@ class Site(SaveableResource, Deleteable):
 		when created.
 		"""
 		response = self.client.post(self._endpoint + "/enable")
-		return bool(response.json['success'])
+		return bool(response.json["success"])
 
 	def get_plan(self):
 		"""Returns the Plan resource for the site."""
@@ -94,13 +95,14 @@ class Site(SaveableResource, Deleteable):
 	def set_plan(self, plan_id, term=None):
 		"""
 		Sets the site's plan to **plan_id** with an optional **term** length.
-		If no term is provided the Weebly Cloud default is used (check API documentation).
+		If no term is provided the Weebly Cloud default is used (check API
+		documentation).
 		"""
 		data = {"plan_id":plan_id}
 		if term:
 			data.update({"term":term})
 		response = self.client.post(self._endpoint + "/plan", content=data)
-		return bool(response.json['success'])
+		return bool(response.json["success"])
 
 	def set_theme(self, theme_id, is_custom):
 		"""
@@ -109,7 +111,7 @@ class Site(SaveableResource, Deleteable):
 		"""
 		data = {"theme_id": theme_id, "is_custom":is_custom}
 		response = self.client.post(self._endpoint + "/theme", content=data)
-		return bool(response.json['success'])
+		return bool(response.json["success"])
 
 	def list_pages(self, **filters):
 		"""
@@ -135,7 +137,10 @@ class Site(SaveableResource, Deleteable):
 		"""
 		properties.update({"email":email, "name":name, "password":password})
 		response = self.client.post(self._endpoint + "/member",content=properties)
-		return Member(response.json['member_id'], self.user_id, self.site_id, data=response.json)
+		return Member(response.json['member_id'],
+					  self.user_id,
+					  self.site_id,
+					  data=response.json)
 
 	def list_groups(self, **filters):
 		"""
@@ -151,7 +156,10 @@ class Site(SaveableResource, Deleteable):
 		"""
 		data = {"name":name}
 		response = self.client.post(self._endpoint + "/group", content=data)
-		return Group(response.json['group_id'], self.user_id, self.site_id, data=response.json)
+		return Group(response.json['group_id'],
+					 self.user_id,
+					 self.site_id,
+					 data=response.json)
 
 	def list_forms(self, **filters):
 		"""

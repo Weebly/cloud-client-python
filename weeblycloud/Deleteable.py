@@ -12,4 +12,4 @@ class Deleteable(object):
 	def delete(self):
 		"""Deletes the resource"""
 		response = self.client.delete(self._endpoint)
-		return bool(response.json['success'])
+		return bool(response.json["success"])

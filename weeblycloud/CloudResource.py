@@ -23,8 +23,9 @@ class CloudResource(object):
 		try:
 			return self.properties[prop]
 		except KeyError:
-			# Sometimes if data is passed in, the object may not include a property that should be there
-			# if a get request was made to the server. This makes that get request and then tries again.
+			# Sometimes if data is passed in, the object may not include a
+			# property that should be there if a get request was made to the
+			# server. This makes that get request and then tries again.
 			if not self._got:
 				self._got = True
 				self._get()
