@@ -37,6 +37,8 @@ class CloudClient(object):
 
 		self.session.headers.update({
 			"Content-type": "application/json",
+			"W-Cloud-Client-Type": "python",
+			"W-Cloud-Client-Version": "1.0.0",
 			'X-Public-Key': self.api_key
 		})
 
