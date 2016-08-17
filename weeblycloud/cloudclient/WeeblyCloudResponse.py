@@ -137,11 +137,10 @@ class WeeblyCloudResponse(object):
 		"""
 		# Replace the page parameter if it exists and add it if it doesn't exist
 		page_regex = re.compile("(?<=[\\&\\?]page=)\\d*")
-		regex_res = page_regex.subn(str(page),self.__response.request.url)
+		regex_res = page_regex.subn(str(page), self.__response.request.url)
 
 		if regex_res[1] == 0:
-			self.__response.request.prepare_url(self.__response.request.url,
-												{"page": str(page)})
+			self.__response.request.prepare_url(self.__response.request.url, {"page": str(page)})
 		else:
 			self.__response.request.url = regex_res[0]
 

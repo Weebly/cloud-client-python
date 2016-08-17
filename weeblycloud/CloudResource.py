@@ -26,12 +26,12 @@ class CloudResource(object):
 			# Sometimes if data is passed in, the object may not include a
 			# property that should be there if a get request was made to the
 			# server. This makes that get request and then tries again.
-			if not self._got:
+			if self._got:
+				return None
+			else
 				self._got = True
 				self._get()
 				return self.get_property(prop)
-			else:
-				return None
 
 	def __str__(self):
 		"""Return a JSON representation of object's properties."""
