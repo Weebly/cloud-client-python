@@ -9,7 +9,7 @@ pip install weeblycloud
 
 **Tested on Python 2.7 and 3.5**
 
-## Getting Started
+## Setup and Authentication
 To use the Weebly Cloud client libraries import the `weeblycloud` module and configure your API keys.
 
 ```python
@@ -20,6 +20,41 @@ weeblycloud.CloudClient.API_SECRET = "[YOUR-API-SECRET]"
 ```
 
 All future calls will use that API key and secret pairing.
+
+## Examples
+
+### Creating a user and site, get a login link
+
+```python
+account = weeblycloud.Account()
+user = account.create_user("test@email.com")
+site = user.create_site("domain.com", site_title="My Website")
+print(site.login_link())
+```
+
+### Printing the name of all pages in a site matching the query "help"
+
+```python
+pages = site.list_pages(query="help")
+for page in pages:
+	print(page.get_property("title"))
+```
+
+## Error Handling
+If a request is unsuccessful, a `ResponseError` exception is raised. This can be caught as follows:
+
+```python
+from weeblycloud import ResponseError
+
+try:
+	account = weeblycloud.Account()
+	user = account.create_user("test@email.com")
+	site = user.create_site("domain.com", site_title="My Website")
+	print(site.login_link())
+except ResponseError as err:
+	print(err.code) # Prints the error code
+	print(err.message) # Prints the error message
+```
 
 ## Resources
 
@@ -53,6 +88,8 @@ And to create a new site:
 user.create_site("example.com", plan_id=4, brand_name="Brand Name")
 
 ```
+
+## Resource Types
 
 ### Account
 [API Documentation](https://cloud-developer.weebly.com/account.html)
@@ -150,25 +187,6 @@ user.create_site("example.com", plan_id=4, brand_name="Brand Name")
 
 - **`delete()`** Delete the Member.
 
-### Examples
-
-#### Creating a user and site, get a login link
-
-```python
-account = weeblycloud.Account()
-user = account.create_user("test@email.com")
-site = user.create_site("domain.com", site_title="My Website")
-print(site.login_link())
-```
-
-#### Printing the name of all pages in a site matching the query "help"
-
-```python
-pages = site.list_pages(query="help")
-for page in pages:
-	print(page.get_property("title"))
-```
-
 ## Making Raw API Calls
 Not every resource has a cooresponding resource class. It is possible to make a raw API call using a `CloudClient` object.
 
@@ -247,24 +265,4 @@ for page in response:
 
 ```
 
-## Error Handling
-If a request is unsuccessful, a `ResponseError` exception is raised. This can be caught as follows:
-
-```python
-from weeblycloud import ResponseError
-
-try:
-	account = weeblycloud.Account()
-	user = account.create_user("test@email.com")
-	site = user.create_site("domain.com", site_title="My Website")
-	print(site.login_link())
-except ResponseError as err:
-	print(err.code) # Prints the error code
-	print(err.message) # Prints the error message
-```
-
 If a pagination method is called on a `WeeblyCloudResponse` that isn't paginated, a `PaginationError` exception is raised.
-
-##Questions?
-
-If you have any questions or feature requests pertaining to the Weebly Cloud Client, please open up a new issue. For general API questions, please contact us at [dev-support@weebly.com](dev-support@weebly.com), and we'll be happy to lend a hand!
