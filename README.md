@@ -26,18 +26,24 @@ All future calls will use that API key and secret pairing.
 ### Creating a user and site, get a login link
 
 ```python
-account = weeblycloud.Account()
-user = account.create_user("test@email.com")
-site = user.create_site("domain.com", site_title="My Website")
-print(site.login_link())
+try:
+	account = weeblycloud.Account()
+	user = account.create_user("test@email.com")
+	site = user.create_site("domain.com", site_title="My Website")
+	print(site.login_link())
+except weeblycloud.ResponseError as err:
+	print("Error: " + err.message)
 ```
 
 ### Printing the name of all pages in a site matching the query "help"
 
 ```python
-pages = site.list_pages(query="help")
-for page in pages:
-	print(page.get_property("title"))
+try:
+	pages = site.list_pages(query="help")
+	for page in pages:
+		print(page.get_property("title"))
+except weeblycloud.ResponseError as err:
+	print("Error: " + err.message)
 ```
 
 ## Error Handling
