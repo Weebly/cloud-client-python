@@ -105,11 +105,11 @@ user.create_site("example.com", plan_id=4, brand_name="Brand Name")
 - **`enable()`** Enables a user account after an account has been disabled. Enabling a user account will allow users to log into the editor. When a user is created, their account is automatically enabled.
 - **`disable()`** Disables a user account. When a user account is disabled, the user will no longer be able to log into the editor. If an attempt to create a login link is made on a disabled account, an error is thrown.
 - **`login_link()`** Generates a one-time link that will direct users to the editor for the last site that was modified in the account. This method requires that the account is enabled and that the account has at least one site.
-- **`list_themes(**filters)`** Returns a iterable of `Theme` resources for a given user subject to keyword argument filters.
-- **`list_sites(**filters)`** Returns a iterable of `Site` resources for a given user subject to keyword argument filters.
+- **`list_themes( **filters)`** Returns a iterable of `Theme` resources for a given user subject to keyword argument filters.
+- **`list_sites( **filters)`** Returns a iterable of `Site` resources for a given user subject to keyword argument filters.
 - **`get_site(site_id)`** Return the `Site` with the given ID.
 - **`create_theme(name, zip_url)`** Creates a `Theme` with name **name**. Requires a **zip_url** and returns a `Theme` object.
-- **`create_site(domain)`** Creates a `Site`. Requires the site's **domain** and optionally accepts keyword arguments of additional properties. Returns a `User` resource.
+- **`create_site(domain, **properties)`** Creates a `Site`. Requires the site's **domain** and optionally accepts keyword arguments of additional properties. Returns a `User` resource.
 
 ### Site
 [API Documentation](https://cloud-developer.weebly.com/site.html)
@@ -118,15 +118,15 @@ user.create_site("example.com", plan_id=4, brand_name="Brand Name")
 - **`publish()`** Publishes the site.
 - **`unpublish()`** Unpublishes the site.
 - **`login_link()`** Generates a one-time link that will direct users to the site specified. This method requires that the account is enabled.
-- **`set_publish_credentials(**options)`** Sets publish credentials to fields set in keyword arguments. If a user's site will not be hosted by Weebly, publish credentials can be provided. When these values are set, the site will be published to the location specified.
+- **`set_publish_credentials( **options)`** Sets publish credentials to fields set in keyword arguments. If a user's site will not be hosted by Weebly, publish credentials can be provided. When these values are set, the site will be published to the location specified.
 - **`restore(url)`** When a site is restored the owner of the site is granted access to it in the exact state it was when it was deleted, including the Weebly plan assigned. Restoring a site does not issue an automatic publish
 - **`disable()`** Suspends access to the given user's site in the editor by setting the suspended parameter to true. If a user attempts to access the site in the editor, an error is thrown.
 - **`enable()`** Re-enables a suspended site by setting the suspended parameter to false. Users can access the editor for the site. Sites are enabled by default when created.
-- **`list_pages(**filters)`** Returns a iterable of `Page` resources for a given site subject to keyword argument filters.
-- **`list_members(**filters)`** Returns a iterable of `Member` resources for a given site subject to keyword argument filters.
-- **`list_groups(**filters)`** Returns a iterable of `Group` resources for a given site subject to keyword argument filters.
-- **`list_forms(**filters)`** Returns a iterable of `Form` resources for a given site subject to keyword argument filters.
-- **`list_blogs(**filters)`** Returns a iterable of `Blog` resources for a given site subject to keyword argument filters.
+- **`list_pages( **filters)`** Returns a iterable of `Page` resources for a given site subject to keyword argument filters.
+- **`list_members( **filters)`** Returns a iterable of `Member` resources for a given site subject to keyword argument filters.
+- **`list_groups( **filters)`** Returns a iterable of `Group` resources for a given site subject to keyword argument filters.
+- **`list_forms( **filters)`** Returns a iterable of `Form` resources for a given site subject to keyword argument filters.
+- **`list_blogs( **filters)`** Returns a iterable of `Blog` resources for a given site subject to keyword argument filters.
 - **`get_page(page_id)`** Return the `Page` with the given id.
 - **`get_member(member_id)`** Return the `Member` with the given id.
 - **`get_group(group_id)`** Return the `Group` with the given id.
@@ -146,7 +146,7 @@ user.create_site("example.com", plan_id=4, brand_name="Brand Name")
 ### Blog
 [API Documentation](https://cloud-developer.weebly.com/blog.html)
 
-- **`list_blog_posts(**filters)`** Returns a iterable of `BlogPost` resources for a given blog subject to keyword argument filters.
+- **`list_blog_posts( **filters)`** Returns a iterable of `BlogPost` resources for a given blog subject to keyword argument filters.
 - **`get_blog_post(blog_post_id)`** Return the `BlogPost` with the given id.
 - **`create_blog_post(post_body, **properties)`** Creates a `BlogPost`. Requires the post's **body** and optionally accepts keyword arguments of additional properties. Returns a `BlogPost` resource.
 
@@ -158,7 +158,7 @@ user.create_site("example.com", plan_id=4, brand_name="Brand Name")
 ### Form
 [API Documentation](https://cloud-developer.weebly.com/form.html)
 
-- **`list_form_entries(**filters)`** Returns a iterable of `FormEntry` resources for a given form subject to keyword argument filters.
+- **`list_form_entries( **filters)`** Returns a iterable of `FormEntry` resources for a given form subject to keyword argument filters.
 - **`get_form_entry(form_entry_id)`** Return the `FormEntry` with the given id.
 
 
