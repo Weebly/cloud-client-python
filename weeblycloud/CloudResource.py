@@ -28,7 +28,7 @@ class CloudResource(object):
 			# server. This makes that get request and then tries again.
 			if self._got:
 				return None
-			else
+			else:
 				self._got = True
 				self._get()
 				return self.get_property(prop)
