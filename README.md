@@ -75,7 +75,7 @@ for site in sites:
 
 ### Using and Modifying Resources
 - The method **`resource.get_property(name)`** of a resource will return the property **name** of **resource**. If the property does not exist it will return **None**.
-- The method **`resource.set_property(name, value)`** will set the propety **name** of **resource** to **value** and returns **True**. If the property does not exist, it will return **False**. Changes will not be saved until the **`resource.save()`** method is called. The Weebly Cloud API does not suppot modifying every resource type nor every property of resource types it supports. For more information, reference the [Cloud API Documentation](https://cloud-developer.weebly.com/about-the-rest-apis.html) for the resource in question's `PUT` method.
+- The method **`resource.set_property(name, value)`** will set the propety **name** of **resource** to **value** and returns **True**. If the property does not exist, it will return **False**. Changes will not be saved until the **`resource.save()`** method is called. The Weebly Cloud API does not suppot modifying every resource type nor every property of resource types it supports. For more information, reference the [Cloud API Documentation](https://cloud-developer.weebly.com/cl_api_about.html) for the resource in question's `PUT` method.
 - The method **`resource.id()`** will return the resource ID.
 - Use Python's **`str()`** function to print a JSON representation of the resource's property (i.e. `str(account)`). To get the resources properties as a dict, use `resource.properties`.
 
@@ -98,7 +98,7 @@ user.create_site("example.com", plan_id=4, brand_name="Brand Name")
 ## Resource Types
 
 ### Account
-[API Documentation](https://cloud-developer.weebly.com/account.html)
+[API Documentation](https://cloud-developer.weebly.com/cl_api_account.html)
 
 - **`create_user(email, **properties)`** Creates a `User`. Requires the user's **email**, and optionally accepts keyword arguments of additional properties. Returns a `User` resource on success.
 - **`get_user(user_id)`** Return the `User` with the given ID.
@@ -106,7 +106,7 @@ user.create_site("example.com", plan_id=4, brand_name="Brand Name")
 - **`get_plan(plan_id)`** Return the `Plan` with the given ID.
 
 ### User
-[API Documentation](https://cloud-developer.weebly.com/user.html)
+[API Documentation](https://cloud-developer.weebly.com/cl_api_user.html)
 
 - **`enable()`** Enables a user account after an account has been disabled. Enabling a user account will allow users to log into the editor. When a user is created, their account is automatically enabled.
 - **`disable()`** Disables a user account. When a user account is disabled, the user will no longer be able to log into the editor. If an attempt to create a login link is made on a disabled account, an error is thrown.
@@ -118,7 +118,7 @@ user.create_site("example.com", plan_id=4, brand_name="Brand Name")
 - **`create_site(domain, **properties)`** Creates a `Site`. Requires the site's **domain** and optionally accepts keyword arguments of additional properties. Returns a `User` resource.
 
 ### Site
-[API Documentation](https://cloud-developer.weebly.com/site.html)
+[API Documentation](https://cloud-developer.weebly.com/cl_api_site.html)
 
 - **`delete()`** delete the site.
 - **`publish()`** Publishes the site.
@@ -145,51 +145,51 @@ user.create_site("example.com", plan_id=4, brand_name="Brand Name")
 - **`create_group(name)`** Creates a `Group`. Requires the group's **name**. Returns a `Group` resource.
 
 ### Theme
-[API Documentation](https://cloud-developer.weebly.com/theme.html)
+[API Documentation](https://cloud-developer.weebly.com/cl_api_themes_user.html)
 
 > There are no `Theme` specific methods.
 
 ### Blog
-[API Documentation](https://cloud-developer.weebly.com/blog.html)
+[API Documentation](https://cloud-developer.weebly.com/cl_api_blog.html)
 
 - **`list_blog_posts( **filters)`** Returns a iterable of `BlogPost` resources for a given blog subject to keyword argument filters.
 - **`get_blog_post(blog_post_id)`** Return the `BlogPost` with the given id.
 - **`create_blog_post(post_body, **properties)`** Creates a `BlogPost`. Requires the post's **body** and optionally accepts keyword arguments of additional properties. Returns a `BlogPost` resource.
 
 ### BlogPost
-[API Documentation](https://cloud-developer.weebly.com/blog-post.html)
+[API Documentation](https://cloud-developer.weebly.com/cl_api_blog_post.html)
 
 - **`delete()`** delete the blog post.
 
 ### Form
-[API Documentation](https://cloud-developer.weebly.com/form.html)
+[API Documentation](https://cloud-developer.weebly.com/cl_api_form.html)
 
 - **`list_form_entries( **filters)`** Returns a iterable of `FormEntry` resources for a given form subject to keyword argument filters.
 - **`get_form_entry(form_entry_id)`** Return the `FormEntry` with the given id.
 
 
 ### FormEntry
-[API Documentation](https://cloud-developer.weebly.com/form-entry.html)
+[API Documentation](https://cloud-developer.weebly.com/cl_api_form_entry.html)
 
 > There are no `FormEntry` specific methods.
 
 ### Page
-[API Documentation](https://cloud-developer.weebly.com/page.html)
+[API Documentation](https://cloud-developer.weebly.com/cl_api_page.html)
 
 - **`change_title(title)`** Changes the title of the page to **title**. Does not require calling the `save()` method.
 
 ### Plan
-[API Documentation](https://cloud-developer.weebly.com/plan.html)
+[API Documentation](https://cloud-developer.weebly.com/cl_api_plan.html)
 
 > There are no `Plan` specific methods.
 
 ### Group
-[API Documentation](https://cloud-developer.weebly.com/group.html)
+[API Documentation](https://cloud-developer.weebly.com/cl_api_group.html)
 
 - **`delete()`** Delete the group.
 
 ### Member
-[API Documentation](https://cloud-developer.weebly.com/member.html)
+[API Documentation](https://cloud-developer.weebly.com/cl_api_member.html)
 
 - **`delete()`** Delete the Member.
 
