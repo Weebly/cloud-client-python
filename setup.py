@@ -9,6 +9,7 @@ setup(name='weeblycloud',
       license='Weebly',
       packages=['weeblycloud'],
       install_requires=[
+          'wheel',
           'requests'
       ],
       zip_safe=True)
